@@ -1,0 +1,51 @@
+import cv2
+import mediapipe as mp
+
+# Initialize MediaPipe Hands module
+mp_hands = mp.solutions.hands
+hands = mp_hands.Hands()
+cap = cv2.VideoCapture(0)  # Open webcam (change index if needed)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Convert BGR frame to RGB
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+    # Process the frame
+    results = hands.process(rgb_frame)
+
+    # Get hand landmarks
+    if results.multi_hand_landmarks:
+        for landmarks in results.multi_hand_landmarks:
+            # Access individual landmarks (x, y, z)
+            for landmark in landmarks.landmark:
+                x, y, z = landmark.x, landmark.y, landmark.z
+                # Process the landmarks (e.g., recognize gestures)
+
+    cv2.imshow("Hand Gesture Recognition", frame)
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+import cv2
+
+cap = cv2.VideoCapture(0)  # Open webcam (change index if needed)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Process the frame (detect hand, find landmarks, etc.)
+    # Implement your own logic to recognize gestures
+
+    cv2.imshow("Hand Gesture Recognition", frame)
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
